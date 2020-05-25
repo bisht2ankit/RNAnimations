@@ -6,7 +6,7 @@ import { SliderImages } from "../components/SliderImages";
 export default function HomeScreen() {
     return (
         <View style={styles.container}>
-            <SliderImages setItemDetailVisible={itemDetailVisibleCallback} />
+            <SliderImages/>
         </View>
     );
 }

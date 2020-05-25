@@ -1,9 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { View, TouchableOpacity, Text, Animated } from 'react-native';
+import { View, TouchableOpacity, Text, Animated, Image } from 'react-native';
 import globalStyles from '../constants/globalStyles';
 import { styles } from './styles';
 import { constants } from '../constants/strings';
 import { AlertModal } from './AlertModal';
+import addIcon from '../assets/add.png';
+import minusIcon from '../assets/minus.png';
 
 export const CartFooter = () => {
     const [quantity, setQuantity] = useState(1);
@@ -86,8 +88,8 @@ export const CartFooter = () => {
     return (
         <View style={[globalStyles.row, { width: '100%' }]}>
             <View style={[styles.addContainer, globalStyles.shadow]}>
-                <TouchableOpacity onPress={decreaseQuantity}>
-                    <Text style={styles.subtitle}>-</Text>
+                <TouchableOpacity onPress={decreaseQuantity} style={styles.addBtn}>
+                    <Image source={minusIcon} style={styles.addIcon}/>
                 </TouchableOpacity>
                 <View>
                     <Animated.Text style={[styles.subtitle, {
@@ -98,8 +100,8 @@ export const CartFooter = () => {
                         opacity: quantityOpacity
                     }]}>{quantity}</Animated.Text>
                 </View>
-                <TouchableOpacity onPress={increaseQuantity}>
-                    <Text style={styles.subtitle}>+</Text>
+                <TouchableOpacity onPress={increaseQuantity} style={styles.addBtn}>
+                    <Image source={addIcon} style={styles.addIcon}/>
                 </TouchableOpacity>
             </View>
             <View style={[styles.priceContainer, globalStyles.shadow]}>

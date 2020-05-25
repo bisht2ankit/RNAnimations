@@ -103,7 +103,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: 20
+        paddingHorizontal: 15
     },
     priceContainer: {
         height: 50,
@@ -134,4 +134,14 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 40,
         paddingVertical: 20
     },
+    addIcon: {
+        width: 15,
+        height: 15
+    },
+    addBtn: {
+        width: 25,
+        height: 25,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 })

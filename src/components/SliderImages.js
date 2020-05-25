@@ -61,7 +61,6 @@ export const SliderImages = (props) => {
     const showItemDetail = (id) => {
         setItemId(id)
         setItemDetailVisible(true);
-        props.setItemDetailVisible(true);
         animateItem();
         animateItemDetail();
     }
@@ -164,7 +163,6 @@ export const SliderImages = (props) => {
 
     const handleBack = () => {
         setItemDetailVisible(false);
-        props.setItemDetailVisible(false);
 
         Animated.timing(itemTranslateX, {
             toValue: 0,
