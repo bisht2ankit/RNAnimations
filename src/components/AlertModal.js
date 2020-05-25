@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Modal, TouchableOpacity } from 'react-native';
 import { constants } from '../constants/strings';
 import { styles } from './styles';
+import PropTypes from 'prop-types';
 
 export const AlertModal = (props) => {
     const { visible, closeModal, quantity } = props;
@@ -17,4 +18,10 @@ export const AlertModal = (props) => {
             </TouchableOpacity>
         </Modal>
     )
+}
+
+AlertModal.propTypes = {
+    visible: PropTypes.bool.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    quantity: PropTypes.number.isRequired
 }
