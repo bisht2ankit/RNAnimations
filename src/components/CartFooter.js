@@ -17,18 +17,21 @@ export const CartFooter = () => {
     const increaseQuantity = () => {
         Animated.timing(animateQuantityYPos, {
             toValue: -15,
-            duration: 200
+            duration: 200,
+            useNativeDriver: true
         }).start()
 
         Animated.timing(quantityOpacity, {
             toValue: 0,
-            duration: 200
+            duration: 200,
+            useNativeDriver: true
         }).start()
 
         setTimeout(() => {
             Animated.timing(animateQuantityYPos, {
                 toValue: 30,
-                duration: 200
+                duration: 200,
+                useNativeDriver: true
             }).start()
         }, 100);
 
@@ -38,12 +41,14 @@ export const CartFooter = () => {
 
             Animated.timing(animateQuantityYPos, {
                 toValue: 0,
-                duration: 200
+                duration: 200,
+                useNativeDriver: true
             }).start()
 
             Animated.timing(quantityOpacity, {
                 toValue: 1,
-                duration: 200
+                duration: 200,
+                useNativeDriver: true
             }).start()
 
         }, 200);
@@ -53,18 +58,21 @@ export const CartFooter = () => {
         if (quantity > 1) {
             Animated.timing(animateQuantityYPos, {
                 toValue: 15,
-                duration: 200
+                duration: 200,
+                useNativeDriver: true
             }).start()
 
             Animated.timing(quantityOpacity, {
                 toValue: 0,
-                duration: 200
+                duration: 200,
+                useNativeDriver: true
             }).start()
 
             setTimeout(() => {
                 Animated.timing(animateQuantityYPos, {
                     toValue: -30,
-                    duration: 200
+                    duration: 200,
+                    useNativeDriver: true
                 }).start()
             }, 100);
 
@@ -73,12 +81,14 @@ export const CartFooter = () => {
                 setPrice(price - 70);
                 Animated.timing(animateQuantityYPos, {
                     toValue: 0,
-                    duration: 200
+                    duration: 200,
+                    useNativeDriver: true
                 }).start()
 
                 Animated.timing(quantityOpacity, {
                     toValue: 1,
-                    duration: 200
+                    duration: 200,
+                    useNativeDriver: true
                 }).start()
 
             }, 200);
