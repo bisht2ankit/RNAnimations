@@ -12,5 +12,14 @@ module.exports = StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: 'center',
+    },
+    shadow: {
+        shadowColor: '#000000',
+        shadowOffset: {
+          width: 0,
+          height: 0.5
+        },
+        shadowRadius: 2,
+        shadowOpacity: 0.4
     }
 })

@@ -69,17 +69,17 @@ export const SliderImages = (props) => {
     const animateItemDetail = () => {
         Animated.timing(itemDetailTranslateX, {
             toValue: 10,
-            duration: 1000
+            duration: 500
         }).start()
 
         Animated.timing(itemTranslateX, {
             toValue: -200,
-            duration: 1000
+            duration: 500
         }).start()
 
         Animated.timing(cartTranslateY, {
             toValue: 0,
-            duration: 1000
+            duration: 500
         }).start()
     }
 
@@ -87,37 +87,37 @@ export const SliderImages = (props) => {
 
         Animated.timing(animatedCardHeight, {
             toValue: windowHeight / 2.2,
-            duration: 1000
+            duration: 500
         }).start()
 
         Animated.timing(animatedCardWidth, {
             toValue: windowWidth / 1.8,
-            duration: 1000
+            duration: 500
         }).start()
 
         Animated.timing(animatedCardRightMargin, {
             toValue: 0,
-            duration: 1000
+            duration: 500
         }).start()
 
         Animated.timing(animatedCardTopMargin, {
             toValue: 0,
-            duration: 1000
+            duration: 500
         }).start()
 
         Animated.timing(animatedCardBottomBorderRadius, {
             toValue: 20,
-            duration: 1000
+            duration: 500
         }).start()
 
         Animated.timing(animatedCardBorderRadius, {
             toValue: 0,
-            duration: 1000
+            duration: 500
         }).start()
         
         Animated.timing(animatedImageTopMargin, {
             toValue: windowHeight / 5,
-            duration: 1000
+            duration: 500
         }).start()
     }
 
@@ -168,58 +168,58 @@ export const SliderImages = (props) => {
 
         Animated.timing(itemTranslateX, {
             toValue: 0,
-            duration: 1000
+            duration: 500
         }).start()
 
         Animated.timing(cartTranslateY, {
             toValue: 80,
-            duration: 1000
+            duration: 500
         }).start()
 
         Animated.timing(itemDetailTranslateX, {
             toValue: -(windowWidth * (itemId+1)),
-            duration: (1000 * (itemId+1))
+            duration: (500 * (itemId+1))
         }).start()
 
         Animated.timing(animatedCardHeight, {
             toValue: 270,
-            duration: 1000
+            duration: 500
 
         }).start()
 
         Animated.timing(animatedCardWidth, {
             toValue: 180,
-            duration: 1000
+            duration: 500
 
         }).start()
 
         Animated.timing(animatedCardRightMargin, {
             toValue: 16,
-            duration: 1000
+            duration: 500
 
         }).start()
 
         Animated.timing(animatedCardTopMargin, {
             toValue: 50,
-            duration: 1000
+            duration: 500
 
         }).start()
 
         Animated.timing(animatedCardBottomBorderRadius, {
             toValue: 10,
-            duration: 1000
+            duration: 500
 
         }).start()
 
         Animated.timing(animatedCardBorderRadius, {
             toValue: 10,
-            duration: 1000
+            duration: 500
 
         }).start()
         
         Animated.timing(animatedImageTopMargin, {
             toValue: 0,
-            duration: 1000
+            duration: 500
 
         }).start()
 

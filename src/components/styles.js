@@ -39,6 +39,11 @@ export const styles = StyleSheet.create({
         color: colors.APP_SUBTITLE_COLOR,
         fontSize: fontSize.subtitle,
     },
+    centerText: {
+        color: colors.THEME_TEXT_COLOR,
+        fontSize: fontSize.subtitle,
+        textAlign: 'center'
+    },
     sliderContainer: {
     },
     indicatorContainer: {
@@ -73,8 +78,8 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     backIcn: {
-        width: 32,
-        height: 32,
+        width: 28,
+        height: 28,
     },
     detailView: {
         left: 16,
@@ -103,8 +108,30 @@ export const styles = StyleSheet.create({
     priceContainer: {
         height: 50,
         borderRadius: 10,
-        backgroundColor: '#f9d0a9',
+        backgroundColor: colors.APP_PRIMARY_BUTTON,
         width: width - 148,
-        marginLeft: 16
-    }
+        marginLeft: 16,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: '5%'
+    },
+    verticalLine: {
+        height: 30,
+        width: 1,
+        backgroundColor: colors.APP_SUBTITLE_COLOR,
+        marginHorizontal: '15%'
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        paddingBottom: 20
+    },
+    childContainer: {
+        marginHorizontal: 16,
+        backgroundColor: 'white',
+        borderRadius: 8,
+        paddingHorizontal: 40,
+        paddingVertical: 20
+    },
 })
