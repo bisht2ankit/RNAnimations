@@ -272,7 +272,7 @@ export const SliderImages = (props) => {
             >
                 <View style={styles.row}>
                     {appInlineData.playStations.map((item, imageIndex) => {
-                        const { name, image } = item;
+                        const { name, image, backgroundColor } = item;
                         const textOpacity = calculateTextOpacity(imageIndex);
                         const imageLeftMargin = calculateImageLeftMargin(imageIndex);
                         const imageDimensions = calculateImageDimensions(imageIndex);
@@ -299,7 +299,8 @@ export const SliderImages = (props) => {
                                             <Animated.View style={[styles.card, animatedStyle, {
                                                 marginRight: animatedCardRightMargin,
                                                 borderBottomLeftRadius: animatedCardBottomBorderRadius,
-                                                borderRadius: animatedCardBorderRadius
+                                                borderRadius: animatedCardBorderRadius,
+                                                backgroundColor: backgroundColor
                                             }]}>
                                                 <Animated.Image resizeMode="contain" source={image} style={[styles.image, {
                                                     marginLeft: imageLeftMargin,
