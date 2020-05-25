@@ -3,6 +3,8 @@ import { ScrollView, View, TouchableOpacity, Animated, useWindowDimensions, Text
 import { appInlineData } from '../constants/appInlineData';
 import { styles } from './styles';
 import { ItemDetail } from './ItemDetail';
+import { constants } from '../constants/strings';
+import { CartFooter } from './CartFooter';
 
 export const SliderImages = (props) => {
     const scrollX = useRef(new Animated.Value(0)).current;
@@ -13,10 +15,12 @@ export const SliderImages = (props) => {
     const animatedCardHeight = useRef(new Animated.Value(270)).current;
     const animatedCardRightMargin = useRef(new Animated.Value(16)).current;
     const animatedCardTopMargin = useRef(new Animated.Value(50)).current;
+    const animatedCardBottomBorderRadius = useRef(new Animated.Value(10)).current;
     const animatedCardBorderRadius = useRef(new Animated.Value(10)).current;
     const animatedImageTopMargin = useRef(new Animated.Value(0)).current;
     const itemDetailTranslateX = useRef(new Animated.Value(-windowWidth)).current;
     const itemTranslateX = useRef(new Animated.Value(0)).current;
+    const cartTranslateY = useRef(new Animated.Value(80)).current;
 
     const calculateTextOpacity = (imageIndex) => {
         return scrollX.interpolate({
@@ -72,12 +76,17 @@ export const SliderImages = (props) => {
             toValue: -200,
             duration: 1000
         }).start()
+
+        Animated.timing(cartTranslateY, {
+            toValue: 0,
+            duration: 1000
+        }).start()
     }
 
     const animateItem = () => {
 
         Animated.timing(animatedCardHeight, {
-            toValue: windowHeight / 2,
+            toValue: windowHeight / 2.2,
             duration: 1000
         }).start()
 
@@ -96,11 +105,16 @@ export const SliderImages = (props) => {
             duration: 1000
         }).start()
 
-        Animated.timing(animatedCardBorderRadius, {
+        Animated.timing(animatedCardBottomBorderRadius, {
             toValue: 20,
             duration: 1000
         }).start()
 
+        Animated.timing(animatedCardBorderRadius, {
+            toValue: 0,
+            duration: 1000
+        }).start()
+        
         Animated.timing(animatedImageTopMargin, {
             toValue: windowHeight / 5,
             duration: 1000
@@ -119,12 +133,46 @@ export const SliderImages = (props) => {
         )
     }
 
+    const renderDetailInfo = () => {
+        return (
+            <Animated.View style={{
+                position: 'absolute',
+                top: windowHeight/2.2 + 10,
+                transform: [
+                    { translateX: itemDetailTranslateX }
+                ]
+            }}>
+                <Text style={styles.description}>{constants.landingDescriptions.itemDescription}</Text>
+            </Animated.View>
+        )
+    }
+
+    const renderCartFooter = () => {
+        return (
+            <Animated.View style={{
+                position: 'absolute',
+                top: windowHeight - 80,
+                marginHorizontal: 16,
+                transform: [
+                    { translateY: cartTranslateY }
+                ]
+            }}>
+                <CartFooter/>
+            </Animated.View>
+        )
+    }
+
     const handleBack = () => {
         setItemDetailVisible(false);
         props.setItemDetailVisible(false);
 
         Animated.timing(itemTranslateX, {
             toValue: 0,
+            duration: 1000
+        }).start()
+
+        Animated.timing(cartTranslateY, {
+            toValue: 80,
             duration: 1000
         }).start()
 
@@ -157,12 +205,18 @@ export const SliderImages = (props) => {
 
         }).start()
 
-        Animated.timing(animatedCardBorderRadius, {
+        Animated.timing(animatedCardBottomBorderRadius, {
             toValue: 10,
             duration: 1000
 
         }).start()
 
+        Animated.timing(animatedCardBorderRadius, {
+            toValue: 10,
+            duration: 1000
+
+        }).start()
+        
         Animated.timing(animatedImageTopMargin, {
             toValue: 0,
             duration: 1000
@@ -246,6 +300,7 @@ export const SliderImages = (props) => {
                                         <TouchableOpacity onPress={() => showItemDetail(imageIndex)}>
                                             <Animated.View style={[styles.card, animatedStyle, {
                                                 marginRight: animatedCardRightMargin,
+                                                borderBottomLeftRadius: animatedCardBottomBorderRadius,
                                                 borderRadius: animatedCardBorderRadius
                                             }]}>
                                                 <Animated.Image resizeMode="contain" source={image} style={[styles.image, {
@@ -264,6 +319,8 @@ export const SliderImages = (props) => {
                     })}
                 </View>
             </ScrollView>
+            {renderDetailInfo()}
+            {renderCartFooter()}
             {!itemDetailVisible && renderSlideIndicator()}
         </View>
 

@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
         width: 180,
         height: 270,
         backgroundColor: colors.APP_SLIDER_BACKGROUND,
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     image: {
         width: 200,
@@ -81,5 +81,30 @@ export const styles = StyleSheet.create({
         top: 50,
         position: 'absolute',
         zIndex: 1
+    },
+    description: {
+        color: colors.APP_SUBTITLE_COLOR,
+        fontSize: fontSize.description,
+        marginTop: 30,
+        flexWrap: 'wrap',
+        width: width - 32,
+        marginLeft: 16,
+    },
+    addContainer: {
+        height: 50,
+        borderRadius: 10,
+        backgroundColor: 'white',
+        width: 100,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 20
+    },
+    priceContainer: {
+        height: 50,
+        borderRadius: 10,
+        backgroundColor: '#f9d0a9',
+        width: width - 148,
+        marginLeft: 16
     }
 })
