@@ -7,7 +7,7 @@ const landingDescriptions = {
 }
 
 const cart = {
-    addedSuccessfully: 'Product added to cart successfully'
+    addedSuccessfully: 'products added to cart successfully'
 }
 
 const buttonTitle = {

@@ -119,7 +119,7 @@ export const CartFooter = () => {
                 </TouchableOpacity>
             </View>
 
-            <AlertModal visible={isCartModalVisible} closeModal={() => setIsCartModalVisible(false)}/>
+            <AlertModal visible={isCartModalVisible} closeModal={() => setIsCartModalVisible(false)} quantity={quantity}/>
         </View>
     )
 }
