@@ -1,13 +1,22 @@
-import React, { useRef } from 'react';
-import { ScrollView, View, Image, Text, Animated, useWindowDimensions } from "react-native";
+import React, { useRef, useState } from 'react';
+import { ScrollView, View, TouchableOpacity, Animated, useWindowDimensions, Text } from "react-native";
 import { appInlineData } from '../constants/appInlineData';
-import globalStyles from '../constants/globalStyles';
 import { styles } from './styles';
+import { ItemDetail } from './ItemDetail';
 
 export const SliderImages = (props) => {
     const scrollX = useRef(new Animated.Value(0)).current;
-    const { width: windowWidth } = useWindowDimensions();
-    const price = useRef(50).current
+    const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+    const [itemDetailVisible, setItemDetailVisible] = useState(false);
+    const [itemId, setItemId] = useState(-1);
+    const animatedCardWidth = useRef(new Animated.Value(180)).current;
+    const animatedCardHeight = useRef(new Animated.Value(270)).current;
+    const animatedCardRightMargin = useRef(new Animated.Value(16)).current;
+    const animatedCardTopMargin = useRef(new Animated.Value(50)).current;
+    const animatedCardBorderRadius = useRef(new Animated.Value(10)).current;
+    const animatedImageTopMargin = useRef(new Animated.Value(0)).current;
+    const itemDetailTranslateX = useRef(new Animated.Value(-windowWidth)).current;
+    const itemTranslateX = useRef(new Animated.Value(0)).current;
 
     const calculateTextOpacity = (imageIndex) => {
         return scrollX.interpolate({
@@ -16,7 +25,7 @@ export const SliderImages = (props) => {
                 windowWidth * imageIndex,
                 windowWidth * (imageIndex + 1)
             ],
-            outputRange: [0.3, 1, 0.3],
+            outputRange: [0, 1, 0],
             extrapolate: "clamp"
         });
     }
@@ -45,16 +54,121 @@ export const SliderImages = (props) => {
         });
     }
 
-    const calculatePrice = (imageIndex, price) => {
-        return scrollX.interpolate({
-            inputRange: [
-                windowWidth * (imageIndex - 1),
-                windowWidth * imageIndex,
-                windowWidth * (imageIndex + 1)
-            ],
-            outputRange: [100, price + 1, 100],
-            extrapolate: "clamp"
-        });
+    const showItemDetail = (id) => {
+        setItemId(id)
+        setItemDetailVisible(true);
+        props.setItemDetailVisible(true);
+        animateItem();
+        animateItemDetail();
+    }
+
+    const animateItemDetail = () => {
+        Animated.timing(itemDetailTranslateX, {
+            toValue: 10,
+            duration: 1000
+        }).start()
+
+        Animated.timing(itemTranslateX, {
+            toValue: -200,
+            duration: 1000
+        }).start()
+    }
+
+    const animateItem = () => {
+
+        Animated.timing(animatedCardHeight, {
+            toValue: windowHeight / 2,
+            duration: 1000
+        }).start()
+
+        Animated.timing(animatedCardWidth, {
+            toValue: windowWidth / 1.8,
+            duration: 1000
+        }).start()
+
+        Animated.timing(animatedCardRightMargin, {
+            toValue: 0,
+            duration: 1000
+        }).start()
+
+        Animated.timing(animatedCardTopMargin, {
+            toValue: 0,
+            duration: 1000
+        }).start()
+
+        Animated.timing(animatedCardBorderRadius, {
+            toValue: 20,
+            duration: 1000
+        }).start()
+
+        Animated.timing(animatedImageTopMargin, {
+            toValue: windowHeight / 5,
+            duration: 1000
+        }).start()
+    }
+
+    const renderDetailPage = () => {
+        return (
+            <Animated.View style={[styles.detailView, {
+                transform: [
+                    { translateX: itemDetailTranslateX }
+                ]
+            }]}>
+                <ItemDetail id={itemId} handleBack={handleBack} />
+            </Animated.View>
+        )
+    }
+
+    const handleBack = () => {
+        setItemDetailVisible(false);
+        props.setItemDetailVisible(false);
+
+        Animated.timing(itemTranslateX, {
+            toValue: 0,
+            duration: 1000
+        }).start()
+
+        Animated.timing(itemDetailTranslateX, {
+            toValue: -(windowWidth * (itemId+1)),
+            duration: (1000 * (itemId+1))
+        }).start()
+
+        Animated.timing(animatedCardHeight, {
+            toValue: 270,
+            duration: 1000
+
+        }).start()
+
+        Animated.timing(animatedCardWidth, {
+            toValue: 180,
+            duration: 1000
+
+        }).start()
+
+        Animated.timing(animatedCardRightMargin, {
+            toValue: 16,
+            duration: 1000
+
+        }).start()
+
+        Animated.timing(animatedCardTopMargin, {
+            toValue: 50,
+            duration: 1000
+
+        }).start()
+
+        Animated.timing(animatedCardBorderRadius, {
+            toValue: 10,
+            duration: 1000
+
+        }).start()
+
+        Animated.timing(animatedImageTopMargin, {
+            toValue: 0,
+            duration: 1000
+
+        }).start()
+
     }
 
     const renderSlideIndicator = () => {
@@ -67,7 +181,7 @@ export const SliderImages = (props) => {
                             windowWidth * imageIndex,
                             windowWidth * (imageIndex + 1)
                         ],
-                        outputRange: [8, 16, 8],
+                        outputRange: [12, 24, 12],
                         extrapolate: "clamp"
                     });
                     return (
@@ -81,12 +195,18 @@ export const SliderImages = (props) => {
         )
     }
 
+    const animatedStyle = {
+        width: animatedCardWidth,
+        height: animatedCardHeight
+    }
+
     return (
-        <View style={styles.sliderContainer}>
+        <View>
             <ScrollView
                 horizontal={true}
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
+                scrollEnabled={!itemDetailVisible}
                 onScroll={
                     Animated.event([{
                         nativeEvent: {
@@ -98,45 +218,53 @@ export const SliderImages = (props) => {
                 }
                 scrollEventThrottle={1}
             >
-                {appInlineData.playStations.map((item, imageIndex) => {
-                    const { name, image, price } = item;
-                    const textOpacity = calculateTextOpacity(imageIndex);
-                    const imageLeftMargin = calculateImageLeftMargin(imageIndex);
-                    const imageDimensions = calculateImageDimensions(imageIndex);
-                    const itemPrice = calculatePrice(imageIndex, price);
-
-                    return (
-                        <Animated.View
-                            style={[styles.listContainer, {
-                                opacity: textOpacity,
-                            }]}
-                            key={imageIndex}
-                        >
-                            <View style={styles.listColumnStyle}>
-                                <Animated.Text style={[styles.title, {
-                                    opacity: textOpacity
-                                }]}>{name}</Animated.Text>
+                <View style={styles.row}>
+                    {appInlineData.playStations.map((item, imageIndex) => {
+                        const { name, image } = item;
+                        const textOpacity = calculateTextOpacity(imageIndex);
+                        const imageLeftMargin = calculateImageLeftMargin(imageIndex);
+                        const imageDimensions = calculateImageDimensions(imageIndex);
+                        const displayItem = itemDetailVisible && itemId !== imageIndex ? 'none' : 'flex';
+                        return (
+                            <View key={imageIndex}>
+                                <Animated.View
+                                    style={[styles.listContainer, {
+                                        opacity: textOpacity
+                                    }]}
+                                >
+                                    <View style={styles.listColumnStyle}>
+                                        <Animated.Text style={[styles.title, {
+                                            opacity: textOpacity,
+                                            marginTop: 70,
+                                            display: displayItem,
+                                            transform: [
+                                                { translateX: itemTranslateX }
+                                            ]
+                                        }]}>{name}</Animated.Text>
+                                    </View>
+                                    <Animated.View style={{ marginTop: animatedCardTopMargin }}>
+                                        <TouchableOpacity onPress={() => showItemDetail(imageIndex)}>
+                                            <Animated.View style={[styles.card, animatedStyle, {
+                                                marginRight: animatedCardRightMargin,
+                                                borderRadius: animatedCardBorderRadius
+                                            }]}>
+                                                <Animated.Image resizeMode="contain" source={image} style={[styles.image, {
+                                                    marginLeft: imageLeftMargin,
+                                                    width: imageDimensions,
+                                                    height: imageDimensions,
+                                                    marginTop: animatedImageTopMargin
+                                                }]} />
+                                            </Animated.View>
+                                        </TouchableOpacity>
+                                    </Animated.View>
+                                </Animated.View>
+                                {(itemId === imageIndex) && renderDetailPage()}
                             </View>
-                            <View style={styles.card}>
-                                <Animated.Image resizeMode="contain" source={image} style={[styles.image, {
-                                    marginLeft: imageLeftMargin,
-                                    width: imageDimensions,
-                                    height: imageDimensions
-                                }]} />
-                            </View>
-                        </Animated.View>
-                    );
-                })}
+                        );
+                    })}
+                </View>
             </ScrollView>
-            {/* <View>
-                    <Text style={styles.subtitle}>Price</Text>
-                    <Animated.Text style={[styles.title, {
-                        marginTop: 0,
-
-                    }]}>$ {50}</Animated.Text>
-                </View> */}
-            {renderSlideIndicator()}
-
+            {!itemDetailVisible && renderSlideIndicator()}
         </View>
 
     )

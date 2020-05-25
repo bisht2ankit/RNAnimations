@@ -18,9 +18,7 @@ export const styles = StyleSheet.create({
         width: 180,
         height: 270,
         backgroundColor: colors.APP_SLIDER_BACKGROUND,
-        borderRadius: 10,
         justifyContent: 'center',
-        marginRight: 16
     },
     image: {
         width: 200,
@@ -42,7 +40,6 @@ export const styles = StyleSheet.create({
         fontSize: fontSize.subtitle,
     },
     sliderContainer: {
-        marginTop: 50,
     },
     indicatorContainer: {
         flexDirection: "row",
@@ -51,8 +48,8 @@ export const styles = StyleSheet.create({
         marginTop: 20
     },
     normalDot: {
-        height: 8,
-        width: 8,
+        height: 5,
+        width: 16,
         borderRadius: 4,
         backgroundColor: colors.APP_SLIDER_BACKGROUND,
         marginHorizontal: 4
@@ -69,6 +66,20 @@ export const styles = StyleSheet.create({
     },
     listColumnStyle: {
         justifyContent: 'space-between',
-        marginLeft: 16
+        marginLeft: 16,
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    backIcn: {
+        width: 32,
+        height: 32,
+    },
+    detailView: {
+        left: 16,
+        top: 50,
+        position: 'absolute',
+        zIndex: 1
     }
 })
